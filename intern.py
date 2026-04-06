@@ -14,6 +14,10 @@ def check_urls(file_path):
 
             url = row[0].strip()
 
+        # Skip empty URLs
+            if not url:
+                continue
+
             try:
                 response = requests.get(url, timeout=5)
                 print(f"({response.status_code}) {url}")
