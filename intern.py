@@ -19,8 +19,11 @@ def check_urls(file_path):
                 continue
 
             try:
-                response = requests.get(url, timeout=5)
-                print(f"({response.status_code}) {url}")
+                response = requests.head(url, timeout=5, allow_redirects=True)
+                if response.url != url:
+                    print(f"({response.status_code}) {url} -> {response.url}")
+                else:
+                    print(f"({response.status_code}) {url}")
             except requests.exceptions.RequestException:
                 print(f"(ERROR) {url}")
 
